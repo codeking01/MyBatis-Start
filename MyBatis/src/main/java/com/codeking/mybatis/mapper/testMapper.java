@@ -6,4 +6,5 @@ package com.codeking.mybatis.mapper;
  */
 public interface testMapper {
     int addTest();
+    void deleteById();
 }
