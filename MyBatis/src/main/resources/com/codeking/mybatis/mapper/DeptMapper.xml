@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeking.mybatis.mapper.DeptMapper">
+    <resultMap id="DeptAndEmpOne" type="Dept">
+        <id property="deptId" column="d_id"/>
+        <result property="deptName" column="d_name"/>
+        <!--ofType：设置collection标签所处理的集合属性中存储数据的类型-->
+        <collection property="empList" ofType="Emp">
+            <id property="empId" column="e_id"/>
+            <result property="empName" column="e_name"/>
+            <result property="age" column="age"/>
+            <result property="sex" column="sex"/>
+        </collection>
+    </resultMap>
+    <select id="getDept" resultType="Dept">
+        select * from `dept` where d_id=#{deptId};
+    </select>
+    <!-- 一对多的   级联处理-->
+    <select id="getDeptByid" resultMap="DeptAndEmpOne">
+        select * from `dept` left join `emp` on dept.d_id=emp.d_id where dept.d_id=#{deptId};
+    </select>
+    <!-- 分布查询   -->
+    <resultMap id="DeptAndEmpByStep" type="Dept">
+        <id property="deptId" column="d_id"/>
+        <result property="deptName" column="d_name"/>
+        <collection select="com.codeking.mybatis.mapper.EmpMapper.getEmpById" property="empList" column="d_id" fetchType="lazy"/>
+    </resultMap>
+    <!--  查询id  -->
+    <select id="getDeptByStep" resultMap="DeptAndEmpByStep">
+        select * from `dept` where d_id=#{deptId};
+    </select>
+</mapper>

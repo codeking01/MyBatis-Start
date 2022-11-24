@@ -77,4 +77,29 @@
     <select id="getFromTableName" resultType="user">
         select * from  ${tableName};
     </select>
+    <!--
+        resultMap：设置自定义映射
+        属性：
+        id：表示自定义映射的唯一标识
+        type：查询的数据要映射的实体类的类型
+        子标签：
+        id：设置主键的映射关系
+        result：设置普通字段的映射关系
+        association：设置多对一的映射关系
+        collection：设置一对多的映射关系
+        属性：
+        property：设置映射关系中实体类中的属性名
+        column：设置映射关系中表中的字段名
+    -->
+    <resultMap id="userMap" type="User">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <select id="getAllUserByResultMap" resultMap="userMap">
+        select id,user_name,password,age,sex,email from `t_user` where user_name like concat("%",#{userName},"%");
+    </select>
 </mapper>

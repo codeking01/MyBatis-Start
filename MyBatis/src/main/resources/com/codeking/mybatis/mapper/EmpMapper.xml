@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeking.mybatis.mapper.EmpMapper">
+    <!-- a>级联方式处理映射关系
+         b>使用association处理映射关系
+    -->
+    <resultMap id="empDeptMapOne" type="Emp">
+        <id property="empId" column="e_id"/>
+        <result property="empName" column="e_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="dept.deptId" column="d_id"/>
+        <result property="dept.deptName" column="d_name"/>
+    </resultMap>
+    <!--    Emp getAllEmp();-->
+    <select id="getAllEmp" resultMap="empDeptMapOne">
+        select *
+        from `emp`
+                 left join `dept` on emp.d_id = dept.d_id
+        where emp.e_id = #{empId};
+    </select>
+
+    <resultMap id="empDeptMapOneTwo" type="Emp">
+        <id property="empId" column="e_id"/>
+        <result property="empName" column="e_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <association property="dept">
+            <id property="deptId" column="d_id"/>
+            <result property="deptName" column="d_name"/>
+        </association>
+    </resultMap>
+    <select id="getEmpAndDeptByEid" resultMap="empDeptMapOneTwo">
+        select * from `emp` left join `dept` on emp.d_id=dept.d_id where emp.e_id=#{empId};
+    </select>
+
+    <resultMap id="empDeptMapOneThree"  type="Emp">
+        <id property="empId" column="e_id"/>
+        <result property="empName" column="e_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <!--select：设置分步查询，查询某个属性的值的sql的标识（namespace.sqlId）
+            column：将sql以及查询结果中的某个字段设置为分步查询的条件-->
+        <association property="dept" select="com.codeking.mybatis.mapper.DeptMapper.getDept" column="d_id" fetchType="eager"/>
+    </resultMap>
+    <select id="getEmpByStep" resultMap="empDeptMapOneThree">
+        select * from `emp` where e_id =#{empId};
+    </select>
+
+    <resultMap id="EmpMap" type="Emp">
+        <id property="empId" column="e_id"/>
+        <result property="empName" column="e_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+    <select id="getEmpById" resultMap="EmpMap">
+        select * from `emp` where e_id =#{empId};
+    </select>
+
+
+</mapper>

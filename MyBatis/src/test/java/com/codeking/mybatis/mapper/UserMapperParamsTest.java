@@ -29,7 +29,7 @@ public class UserMapperParamsTest {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         int result = userMapper.insertUserByEntity(new User() {
             {
-                this.setUsername("test");
+                this.setUserName("test");
                 this.setPassword("test");
                 this.setEmail("test@qq.com");
                 this.setAge(18);
@@ -129,12 +129,19 @@ public class UserMapperParamsTest {
         User user=new  User() {{
             this.setSex('男');
             this.setAge(18);
-            this.setUsername("commit");
+            this.setUserName("commit");
             this.setPassword("commit");
             this.setEmail("123@qq.com");
         }};
         System.out.println("插入前的id：" + user.getId());
         userMapper.insertUserGetId(user);
         System.out.println("插入后的id：" + user.getId());
+    }
+    @Test
+    public void getAllUserByResultMapTest() {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        ArrayList<User> result = userMapper.getAllUserByResultMap("张");
+        System.out.println("结果：" + result);
     }
 }

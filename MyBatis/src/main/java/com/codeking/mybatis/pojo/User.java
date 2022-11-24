@@ -12,18 +12,6 @@ public class User {
     private char sex;
     private String email;
 
-    public User() {
-    }
-
-    public User(Integer id, String username, String password, Integer age, char sex, String email) {
-        this.id = id;
-        this.userName = username;
-        this.password = password;
-        this.age = age;
-        this.sex = sex;
-        this.email = email;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -32,12 +20,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUsername(String username) {
-        this.userName = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -72,11 +60,23 @@ public class User {
         this.email = email;
     }
 
+    public User(Integer id, String userName, String password, Integer age, char sex, String email) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.age = age;
+        this.sex = sex;
+        this.email = email;
+    }
+
+    public User() {
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + userName + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", age=" + age +
                 ", sex=" + sex +

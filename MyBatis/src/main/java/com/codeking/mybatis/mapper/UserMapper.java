@@ -40,4 +40,6 @@ public interface UserMapper {
     ArrayList<User> getFromTableName(@Param("tableName") String tableName);
     //添加功能获取自增的主键
     int insertUserGetId(User user);
+
+    ArrayList<User> getAllUserByResultMap(@Param("userName") String userName);
 }

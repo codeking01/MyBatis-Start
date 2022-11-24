@@ -10,6 +10,13 @@
     <!--设置连接数据库的环境-->
     <!--  引入配置文件  -->
     <properties resource="jdbc.properties"/>
+    <settings>
+        <!--  不建议打开，因为又的字段比较长 false是关闭      -->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <!--开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
     <typeAliases>
         <package name="com.codeking.mybatis.pojo"/>
     </typeAliases>

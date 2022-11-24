@@ -13,7 +13,6 @@ import static com.codeking.mybatis.utils.HandlerMapperUtils.getSqlSession;
  * @create : 2022/11/23 22:13
  */
 public class testMapperTest {
-
     @Test
     public void addTest() {
         SqlSession sqlSession=getSqlSession();
