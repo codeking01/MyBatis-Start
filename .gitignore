@@ -37,4 +37,4 @@ build/
 /Spring-AOP/src/test/
 */test/
 **/target/
-**/test/
+#**/test/

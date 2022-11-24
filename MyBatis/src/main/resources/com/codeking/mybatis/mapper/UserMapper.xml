@@ -22,7 +22,24 @@
     <select id="getById" resultType="User">
         select * from `t_user` where id= '${id}'
     </select>
+    <!--    查询用户的总记录数
+         @return
+         在MyBatis中，对于Java中常用的类型都设置了类型别名
+         例如：java.lang.Integer -> int|integer
+        * 例如：int -> _int|_integer
+        * 例如：Map -> map,List -> list-->
     <select id="getAllUser" resultType="User">
+        select * from `t_user`
+    </select>
+
+
+    <select id="getUserToMap" resultType="java.util.HashMap">
+        select * from `t_user` where id = #{id}
+    </select>
+    <select id="getAllUserToMap" resultType="java.util.HashMap">
+        select * from `t_user`
+    </select>
+    <select id="getAllUserToHashMap" resultType="java.util.HashMap">
         select * from `t_user`
     </select>
 </mapper>
