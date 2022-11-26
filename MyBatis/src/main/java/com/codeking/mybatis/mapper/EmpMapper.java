@@ -19,4 +19,5 @@ public interface EmpMapper {
 
     // 查询emp的所有
     Emp getEmpById(@Param("empId") Integer empId);
+
 }

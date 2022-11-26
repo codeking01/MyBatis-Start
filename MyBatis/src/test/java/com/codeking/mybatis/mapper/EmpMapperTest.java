@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static com.codeking.mybatis.utils.HandlerMapperUtils.getSqlSession;
 
@@ -34,5 +35,11 @@ public class EmpMapperTest {
         EmpMapper empMapper = sqlSession.getMapper(EmpMapper.class);
         Emp result = empMapper.getEmpByStep(3);
         System.out.println("result: " + result);
+    }
+
+    @Test
+    public void test(){
+        ArrayList arrayList=new ArrayList(){{this.add(5);this.add(6);}};
+        System.out.println(arrayList);
     }
 }

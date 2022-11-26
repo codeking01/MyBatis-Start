@@ -8,7 +8,7 @@ public class Emp {
     private Integer empId;
     private String empName;
     private Integer age;
-    private char sex;
+    private String sex;
     private Dept dept;
 
     @Override
@@ -46,11 +46,11 @@ public class Emp {
         this.age = age;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -62,12 +62,18 @@ public class Emp {
         this.dept = dept;
     }
 
-    public Emp(Integer empId, String empName, Integer age, char sex, Dept dept) {
+    public Emp(Integer empId, String empName, Integer age, String sex, Dept dept) {
         this.empId = empId;
         this.empName = empName;
         this.age = age;
         this.sex = sex;
         this.dept = dept;
+    }
+    public Emp(Integer empId, String empName, Integer age, String sex ) {
+        this.empId = empId;
+        this.empName = empName;
+        this.age = age;
+        this.sex = sex;
     }
 
     public Emp() {
