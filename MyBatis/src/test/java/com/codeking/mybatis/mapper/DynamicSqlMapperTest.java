@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author : codeking
@@ -40,11 +42,47 @@ public class DynamicSqlMapperTest {
     public void getEmpByCondition() {
         SqlSession sqlSession = HandlerMapperUtils.getSqlSession();
         DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
-        //Emp emp1=new Emp(null,"张1",22,'男',null);
-        //Emp emp2=new Emp(null,"张2",23,'男',null);
-        //Emp emp3=new Emp(null,"张3",24,'男',null);
-        //List<Emp> emps= (ArrayList<Emp>) Arrays.asList(emp1,emp2,emp3);
         ArrayList<Emp> result = mapper.getEmpByCondition(new Emp(null, "", null, ""));
+        System.out.println("result :"+result);
+    }
+    @Test
+    public void getEmpByConditionWhere() {
+        SqlSession sqlSession = HandlerMapperUtils.getSqlSession();
+        DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+        ArrayList<Emp> result = mapper.getEmpByCondition(new Emp(null, "", null, ""));
+        System.out.println("result :"+result);
+    }
+    @Test
+    public void getEmpByConditionTrim() {
+        SqlSession sqlSession = HandlerMapperUtils.getSqlSession();
+        DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+        ArrayList<Emp> result = mapper.getEmpByCondition(new Emp(null, "", null, ""));
+        System.out.println("result :"+result);
+    }
+    @Test
+    public void getEmpByConditionChoose() {
+        SqlSession sqlSession = HandlerMapperUtils.getSqlSession();
+        DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+        ArrayList<Emp> result = mapper.getEmpByCondition(new Emp(null, "", null, ""));
+        System.out.println("result :"+result);
+    }
+    @Test
+    public void insertEmpByConditionChoose() {
+        SqlSession sqlSession = HandlerMapperUtils.getSqlSession();
+        DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+        Emp emp1=new Emp(null,"张1",22, "男");
+        Emp emp2=new Emp(null,"张2",23, "男");
+        Emp emp3=new Emp(null,"张3",24, "男");
+        List<Emp> empList=Arrays.asList(emp1,emp2,emp3);
+        int result = mapper.insertEmpByConditionForeach(empList);
+        System.out.println("result :"+result);
+    }
+    @Test
+    public void delEmpByConditionForeach() {
+        SqlSession sqlSession = HandlerMapperUtils.getSqlSession();
+        DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+        Integer[] eidList={6,7,8,9};
+        int result = mapper.delEmpByConditionForeach(eidList);
         System.out.println("result :"+result);
     }
 }

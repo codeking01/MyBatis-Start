@@ -3,6 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.codeking.mybatis.mapper.DynamicSqlMapper">
+    <!-- sql片段，可以记录一段公共sql片段，在使用的地方通过include标签进行引入   -->
+    <sql id="empColumns"> e_id,e_name,age,sex </sql>
+    <!-- foreach 需要添加 item属性 -->
+    <insert id="insertEmpByConditionForeach">
+        insert into `emp` values
+        <foreach collection="empList" item="item"  separator=",">
+            (null,#{item.empName},#{item.age},#{item.sex},null)
+        </foreach>
+    </insert>
+    <delete id="delEmpByConditionForeach">
+        delete from `emp` where
+            <foreach collection="eidList" item="item" separator="or">
+                e_id=#{item}
+            </foreach>
+    </delete>
     <!-- if 的使用 -->
     <select id="getEmpByCondition" resultType="com.codeking.mybatis.pojo.Emp">
         select * from `emp` where 1=1
@@ -15,5 +30,56 @@
         <if test="sex!='' and sex!=null">
             and sex=#{sex}
         </if>
+    </select>
+        <!--   where和if一般结合使用：
+            a>若where标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字
+            b>若where标签中的if条件满足，则where标签会自动添加where关键字，并将条件最前方多余的
+            and去掉
+            注意：where标签不能去掉条件最后多余的and
+        -->
+    <select id="getEmpByConditionWhere" resultType="com.codeking.mybatis.pojo.Emp">
+        select * from `emp`
+        <where>
+            <if test="empName!='' and empName!=null">
+                e_name=#{empName}
+            </if>
+            <if test="age!='' and age!=null">
+                and age=#{age}
+            </if>
+            <if test="sex!='' and sex!=null">
+                and sex=#{sex}
+            </if>
+        </where>
+    </select>
+    <select id="getEmpByConditionTrim" resultType="com.codeking.mybatis.pojo.Emp">
+        select * from `emp`
+        <trim prefix="where" prefixOverrides="and" suffixOverrides="" suffix="">
+            <if test="empName!='' and empName!=null">
+                e_name=#{empName}
+            </if>
+            <if test="age!='' and age!=null">
+                and age=#{age}
+            </if>
+            <if test="sex!='' and sex!=null">
+                and sex=#{sex}
+            </if>
+        </trim>
+    </select>
+    <!--    choose、when、otherwise相当于if...else if..else-->
+    <select id="getEmpByConditionChoose" resultType="com.codeking.mybatis.pojo.Emp">
+        select <include refid="empColumns"/> from `emp`
+        <where>
+            <choose>
+                <when test="empName!='' and empName!=null">
+                    e_name=#{empName}
+                </when>
+                <when test="age!='' and age!=null">
+                    and age=#{age}
+                </when>
+                <when test="sex!='' and sex!=null">
+                    and sex=#{sex}
+                </when>
+            </choose>
+        </where>
     </select>
 </mapper>
