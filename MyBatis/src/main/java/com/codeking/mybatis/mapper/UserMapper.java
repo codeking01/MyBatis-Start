@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author : codeking
@@ -30,6 +29,15 @@ public interface UserMapper {
 
     //查询多条数据为map集合
     ArrayList<HashMap<String, Object>> getAllUserToMap();
+
     @MapKey("id")
-    HashMap<String,Object> getAllUserToHashMap();
+    HashMap<String, Object> getAllUserToHashMap();
+    //模糊查询
+    ArrayList<User> fuzzySearch(@Param("userName") String userName);
+    // 批量删除
+    int deleteSpecialUser(@Param("ids") String idS);
+    //动态设置表名
+    ArrayList<User> getFromTableName(@Param("tableName") String tableName);
+    //添加功能获取自增的主键
+    int insertUserGetId(User user);
 }

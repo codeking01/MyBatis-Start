@@ -6,21 +6,41 @@
     <!--int insertUser();-->
     <!--    insert into `t_user` values(null,#{username},#{password},#{age},#{sex},#{email})-->
     <insert id="insertUser">
-        insert into `t_user` values (null, #{arg0}, #{arg1}, #{arg2}, #{arg3}, #{arg4})
+        insert into `t_user`
+        values (null, #{arg0}, #{arg1}, #{arg2}, #{arg3}, #{arg4})
     </insert>
 
     <insert id="insertUserByEntity">
-        insert into `t_user` values(null,#{username},#{password},#{age},#{sex},#{email})
+        insert into `t_user`
+        values (null, #{username}, #{password}, #{age}, #{sex}, #{email})
+    </insert>
+    <!--    useGeneratedKeys：设置使用自增的主键
+            keyProperty：因为增删改有统一的返回值是受影响的行数，因此只能将获取的自增的主键放在传输的参数user对象的某个属性中-->
+    <insert id="insertUserGetId" useGeneratedKeys="true" keyProperty="id">
+        insert into `t_user` values (null,#{userName},#{password},#{age},#{sex},#{email});
     </insert>
     <update id="updateUserById">
-        update `t_user` set username=#{username},password=#{password},age=#{age},sex=#{sex},email=#{email} where id =#{id}
+        update `t_user`
+        set username=#{username},
+            password=#{password},
+            age=#{age},
+            sex=#{sex},
+            email=#{email}
+        where id = #{id}
     </update>
 
     <delete id="deleteUserById">
-        delete from `t_user` where id=#{id}
+        delete
+        from `t_user`
+        where id = #{id}
+    </delete>
+    <delete id="deleteSpecialUser">
+        delete from `t_user` where id in (${ids})
     </delete>
     <select id="getById" resultType="User">
-        select * from `t_user` where id= '${id}'
+        select *
+        from `t_user`
+        where id = '${id}'
     </select>
     <!--    查询用户的总记录数
          @return
@@ -29,17 +49,32 @@
         * 例如：int -> _int|_integer
         * 例如：Map -> map,List -> list-->
     <select id="getAllUser" resultType="User">
-        select * from `t_user`
+        select *
+        from `t_user`
     </select>
 
 
     <select id="getUserToMap" resultType="java.util.HashMap">
-        select * from `t_user` where id = #{id}
+        select *
+        from `t_user`
+        where id = #{id}
     </select>
     <select id="getAllUserToMap" resultType="java.util.HashMap">
-        select * from `t_user`
+        select *
+        from `t_user`
     </select>
-    <select id="getAllUserToHashMap" resultType="java.util.HashMap">
-        select * from `t_user`
+    <select id="getAllUserToHashMap" resultType="HashMap">
+        select *
+        from `t_user`
+    </select>
+    <!--  select * from `t_user` where user_name like '%${userName}%'-->
+    <!--  select * from `t_user` where user_name like "%"#{userName}"%"-->
+    <!--  select * from `t_user` where user_name like concat('%',#{userName},'%')-->
+    <select id="fuzzySearch" resultType="User">
+        select * from `t_user` where user_name like concat('%',#{userName},'%')
+    </select>
+    <!-- 这个地方得用${} 因为不是加字符串    -->
+    <select id="getFromTableName" resultType="user">
+        select * from  ${tableName};
     </select>
 </mapper>
