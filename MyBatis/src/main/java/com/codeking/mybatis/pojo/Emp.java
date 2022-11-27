@@ -1,10 +1,12 @@
 package com.codeking.mybatis.pojo;
 
+import java.io.Serializable;
+
 /**
  * @author : codeking
  * @create : 2022/11/26 15:07
  */
-public class Emp {
+public class Emp implements Serializable {
     private Integer empId;
     private String empName;
     private Integer age;

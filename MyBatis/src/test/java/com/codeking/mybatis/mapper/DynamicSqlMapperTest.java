@@ -64,7 +64,9 @@ public class DynamicSqlMapperTest {
         SqlSession sqlSession = HandlerMapperUtils.getSqlSession();
         DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
         ArrayList<Emp> result = mapper.getEmpByCondition(new Emp(null, "", null, ""));
+        ArrayList<Emp> result1 = mapper.getEmpByCondition(new Emp(null, "", null, ""));
         System.out.println("result :"+result);
+        System.out.println("result1 :"+result1);
     }
     @Test
     public void insertEmpByConditionChoose() {

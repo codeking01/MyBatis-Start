@@ -82,4 +82,6 @@
             </choose>
         </where>
     </select>
+    <!-- 开启二级缓存的第二步 -->
+    <cache/>
 </mapper>
