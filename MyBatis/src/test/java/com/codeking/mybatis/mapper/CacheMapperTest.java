@@ -15,6 +15,12 @@ import java.io.InputStream;
  * @create : 2022/11/27 13:36
  */
 public class CacheMapperTest {
+    /**
+     * 先查询二级缓存，因为二级缓存中可能会有其他程序已经查出来的数据，可以拿来直接使用。
+     * 如果二级缓存没有命中，再查询一级缓存
+     * 如果一级缓存也没有命中，则查询数据库
+     * SqlSession关闭之后，一级缓存中的数据会写入二级缓存
+     */
 
     @Test
     public void getEmpByEid()  {
@@ -34,7 +40,7 @@ public class CacheMapperTest {
             SqlSession sqlSession1 = sqlSessionFactory.openSession(true);
             CacheMapper mapper1 = sqlSession1.getMapper(CacheMapper.class);
             Emp result1 = mapper1.getEmpByEid(1);
-            mapper1.insertEmp(new Emp());
+            //mapper1.insertEmp(new Emp());
             System.out.println("result1: " + result1);
             sqlSession1.close();
             SqlSession sqlSession2 = sqlSessionFactory.openSession(true);
