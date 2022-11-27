@@ -5,8 +5,8 @@
 <configuration>
     <!-- 顺序严格要求！！！
        核心配置文件中的标签必须按照固定的顺序：
-        properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorF
-        actory?,plugins?,environments?,databaseIdProvider?,mappers?-->
+        properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorFactory?
+        ,plugins?,environments?,databaseIdProvider?,mappers?-->
     <!--设置连接数据库的环境-->
     <!--  引入配置文件  -->
     <properties resource="jdbc.properties"/>
@@ -22,6 +22,10 @@
     <typeAliases>
         <package name="com.codeking.mybatis.pojo"/>
     </typeAliases>
+    <plugins>
+        <!--设置分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
     <environments default="development">
         <!--environments：设置多个连接数据库的环境 属性：default：设置默认使用的环境的id-->
         <environment id="development">
